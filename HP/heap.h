@@ -1,7 +1,13 @@
+#ifndef HEAP_H
+#define HEAP_H
+
+#include "BF/BF.h"
+
 typedef struct
 {
-    int fileDesc;   /* αναγνωριστικός αριθμός ανοίγματος αρχείου από το επίπεδο block */
-    char attrType;  /* ο τύπος του πεδίου που είναι κλειδί για το συγκεκριμένο αρχείο, 'c' ή'i' */
-    char *attrName; /* το όνομα του πεδίου που είναι κλειδί για το συγκεκριμένο αρχείο */
-    int attrLength; /* το μέγεθος του πεδίου που είναι κλειδί για το συγκεκριμένο αρχείο */
+    int fileDesc;
+    char attrType;
+    char *attrName;
+    int attrLength;
 } HP_info;
+#endif

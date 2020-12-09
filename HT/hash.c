@@ -1,4 +1,5 @@
 #include "hash.h"
+#include "BF/BF.h"
 
 int HT_CreateIndex(char *fileName, char attrType, char *attrName, int attrLength, int buckets)
 {

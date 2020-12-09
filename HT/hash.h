@@ -1,3 +1,8 @@
+#ifndef HASH_H
+#define HASH_H
+
+#include "BF/BF.h"
+
 typedef struct
 {
     int fileDesc;
@@ -6,3 +11,4 @@ typedef struct
     int attrLength;
     long int numBuckets;
 } HT_info;
+#endif

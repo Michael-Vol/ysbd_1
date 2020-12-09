@@ -1,4 +1,5 @@
 #include "heap.h"
+#include "BF/BF.h"
 
 int HP_CreateFile(char *fileName, char attrType, char *attrName, int attrLength, int buckets)
 {
