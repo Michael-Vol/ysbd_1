@@ -2,38 +2,37 @@
 #define HEAP_H
 
 #include "../BF/BF.h"
-#define RECORD_SIZE 94
+#include "util.h"
 
-int getNumEntries(void *block);
-void *getNextBlockP(void *block);
-void *jumpToNextEntry(void *block);
-int increaseNumEntries(void *block);
-int idIsUnique(void *firstBlock, int id);
-void *findEntryWithId(void *firstBlock, int id);
-int findBlockNumber(void *firstBlock, int id);
-int findEntriesToPrint(void *firstBlock, int id);
-int printEntry(Record *entry);
-void initBlock(void *block);
+int HP_CreateFile(char *fileName, char attrType, char *attrName, int attrLength);
+HP_info *HP_OpenFile(char *fileName);
+int HP_CloseFile(HP_info *header_info);
+int HP_InsertEntry(HP_info header_info, Record record);
+int HP_DeleteEntry(HP_info header_info, void *value);
+int HP_GetAllEntries(HP_info header_info, void *value);
 
 typedef struct
 {
-  int fileDesc;
-  char attrType;
-  char *attrName;
-  int attrLength;
+	int fileDesc;
+	char attrType;
+	char *attrName;
+	int attrLength;
 } HP_info;
-typedef struct {
-  char typeOfFile[2];
-  char *filename;
-  char attrType;
-  char *attrName;
-  int attrLength;
+
+typedef struct
+{
+	char typeOfFile[2];
+	char *filename;
+	char attrType;
+	char *attrName;
+	int attrLength;
 } firstBlockInfo;
 
-typedef struct {
-  Record records[BLOCK_SIZE / RECORD_SIZE];
-  int numOfRecords;
-  Block *nextBlock;
+typedef struct
+{
+	Record records[BLOCK_SIZE / RECORD_SIZE];
+	int numOfRecords;
+	Block *nextBlock;
 } Block;
 
 #endif
