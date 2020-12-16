@@ -28,7 +28,7 @@ typedef struct
 	int attrLength;
 } firstBlockInfo;
 
-typedef struct
+typedef struct // το κανουμε κατι αυτοο?????
 {
 	Record records[BLOCK_SIZE / RECORD_SIZE];
 	int numOfRecords;

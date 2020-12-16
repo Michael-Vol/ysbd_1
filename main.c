@@ -1,5 +1,7 @@
 #include "HP/heap.h"
-#include "HT/hash.h"
+
+#include <stdlib.h>
+#include <stdio.h>
 
 int main()
 {
