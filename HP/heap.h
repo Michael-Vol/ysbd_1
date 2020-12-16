@@ -2,7 +2,16 @@
 #define HEAP_H
 
 #include "../BF/BF.h"
-#include "util.h"
+#include "../util.h"
+
+typedef struct
+{
+  int fileDesc;
+  char attrType;
+  char attrName[20];
+  int attrLength;
+  char fileName[20];
+} HP_info;
 
 int HP_CreateFile(char *fileName, char attrType, char *attrName, int attrLength);
 HP_info *HP_OpenFile(char *fileName);
@@ -13,26 +22,11 @@ int HP_GetAllEntries(HP_info header_info, void *value);
 
 typedef struct
 {
-	int fileDesc;
-	char attrType;
-	char *attrName;
-	int attrLength;
-} HP_info;
-
-typedef struct
-{
-	char typeOfFile[2];
-	char *filename;
-	char attrType;
-	char *attrName;
-	int attrLength;
+  char typeOfFile[2];
+  char filename[20];
+  char attrType;
+  char attrName[20];
+  int attrLength;
 } firstBlockInfo;
-
-typedef struct // το κανουμε κατι αυτοο?????
-{
-	Record records[BLOCK_SIZE / RECORD_SIZE];
-	int numOfRecords;
-	Block *nextBlock;
-} Block;
 
 #endif

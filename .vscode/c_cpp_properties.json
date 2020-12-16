@@ -7,7 +7,7 @@
                 "${workspaceFolder}"
             ],
             "defines": [],
-            "compilerPath": "/bin/gcc",
+            "compilerPath": "/usr/bin/clang",
             "cStandard": "gnu17",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
