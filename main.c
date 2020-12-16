@@ -4,13 +4,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main() {
-  int heapCreated = HP_CreateFile("Test", 'i', "id", 10);
-  if (heapCreated == -1) {
+int main()
+{
+  int heapCreated = HP_CreateFile("test", 'i', "id", 10);
+  if (heapCreated == -1)
+  {
     fprintf(stderr, "Couldn't create Heap\n");
     exit(EXIT_FAILURE);
   }
-  HP_info *hpInfo = HP_OpenFile("Test");
+  HP_info *hpInfo = HP_OpenFile("test");
 
   FILE *fp;
   char *line = NULL;
@@ -21,7 +23,9 @@ int main() {
   if (fp == NULL)
     exit(EXIT_FAILURE);
 
-  while ((read = getline(&line, &len, fp)) != -1) {
+  while ((read = getline(&line, &len, fp)) != -1)
+  {
+
     char extract[read];
     sscanf(line, "{%[^}]", extract);
     const char s[2] = ",";
@@ -46,9 +50,10 @@ int main() {
 
     HP_InsertEntry(*hpInfo, *record);
   }
-
+  // HP_GetAllEntries(*hpInfo, NULL);
   fclose(fp);
-  if (line) {
+  if (line)
+  {
     free(line);
     exit(EXIT_SUCCESS);
   }

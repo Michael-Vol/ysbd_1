@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-Record *createRecord(int id, char name[15], char surname[25], char address[50]) {
+Record *createRecord(int id, char name[15], char surname[25], char address[50])
+{
   Record *record = malloc(sizeof(Record));
   record->id = id;
   strcpy(record->address, address);
@@ -12,44 +13,65 @@ Record *createRecord(int id, char name[15], char surname[25], char address[50]) 
   return record;
 }
 
-int getNumEntries(void *block) {
+int getNumEntries(void *block)
+{
   void *blockPointer = block;
   int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
   return *numEntriesP;
 }
-void *getNextBlockP(void *block) {
+void *getNextBlockP(void *block)
+{
   void *blockPointer = block;
   void *NextBlockP = blockPointer + NB_POINTER_POS;
   return NextBlockP;
 }
-void *jumpToNextEntry(void *block) {
+
+void *setBlockP(void *block, void *ptr)
+{
+  void *blockPointer = block;
+  void *NextBlockP = blockPointer + NB_POINTER_POS;
+  *((int *)NextBlockP) = ptr;
+}
+void *jumpToNextEntry(void *block)
+{
   void *blockPointer = block;
   void *NextRecordP = blockPointer + RECORD_SIZE;
   return NextRecordP;
 }
-int increaseNumEntries(void *block) {
+int increaseNumEntries(void *block)
+{
+  // void *blockPointer = block;
+  // int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
+  // int newEntries = *(numEntriesP)++;
+  // return newEntries;
   void *blockPointer = block;
   int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
-  int newEntries = *(numEntriesP)++;
-  return newEntries;
+  *(numEntriesP) = *(numEntriesP) + 1;
+  return *(numEntriesP);
 }
 
-void initBlock(void *block) {
+void initBlock(void *block)
+{
   void *blockPointer = block;
   void *NextBlockP = blockPointer + NB_POINTER_POS;
   int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
-  void *nullptr = NULL;
+  void *nullptr = 0;
+  *((int *)NextBlockP) = NULL;
   // memcpy(NextBlockP, nullptr, 8);
   *numEntriesP = 0;
 }
 
-int idIsUnique(void *firstBlock, int id) {
+int idIsUnique(void *firstBlock, int id)
+{
   void *currentBlock = firstBlock;
-  while (currentBlock != NULL) {
+  while (currentBlock != NULL)
+  {
     int numEntries = getNumEntries(currentBlock);
     Record *currentEntry = (Record *)currentBlock;
-    for (int i = 0; i < numEntries; i++) {
-      if (currentEntry->id == id) {
+    for (int i = 0; i < numEntries; i++)
+    {
+      if (currentEntry->id == id)
+      {
         return 0;
       }
       currentEntry = jumpToNextEntry(currentBlock);
@@ -59,13 +81,17 @@ int idIsUnique(void *firstBlock, int id) {
   return 1;
 }
 
-void *findEntryWithId(void *firstBlock, int id) {
+void *findEntryWithId(void *firstBlock, int id)
+{
   void *currentBlock = firstBlock;
-  while (currentBlock != NULL) {
+  while (currentBlock != NULL)
+  {
     int numEntries = getNumEntries(currentBlock);
     Record *currentEntry = (Record *)currentBlock;
-    for (int i = 0; i < numEntries; i++) {
-      if (currentEntry->id == id) {
+    for (int i = 0; i < numEntries; i++)
+    {
+      if (currentEntry->id == id)
+      {
         return currentEntry;
       }
       currentEntry = jumpToNextEntry(currentBlock);
@@ -74,14 +100,18 @@ void *findEntryWithId(void *firstBlock, int id) {
   }
   return NULL;
 }
-int findBlockNumber(void *firstBlock, int id) {
+int findBlockNumber(void *firstBlock, int id)
+{
   void *currentBlock = firstBlock;
   int blockCounter = 0;
-  while (currentBlock != NULL) {
+  while (currentBlock != NULL)
+  {
     int numEntries = getNumEntries(currentBlock);
     Record *currentEntry = (Record *)currentBlock;
-    for (int i = 0; i < numEntries; i++) {
-      if (currentEntry->id == id) {
+    for (int i = 0; i < numEntries; i++)
+    {
+      if (currentEntry->id == id)
+      {
         return blockCounter;
       }
       currentEntry = jumpToNextEntry(currentBlock);
@@ -92,7 +122,8 @@ int findBlockNumber(void *firstBlock, int id) {
   return -1;
 }
 
-int printEntry(Record *entry) {
+int printEntry(Record *entry)
+{
   printf("Id: %d \n", entry->id);
   printf("Name: %s \n", entry->name);
   printf("Surname: %s \n", entry->surname);
@@ -100,16 +131,22 @@ int printEntry(Record *entry) {
   return 0;
 }
 
-int findEntriesToPrint(void *firstBlock, void *id) {
+int findEntriesToPrint(void *firstBlock, void *id)
+{
   void *currentBlock = firstBlock;
   int blockCounter = 0;
-  while (currentBlock != NULL) {
+  while (currentBlock != NULL)
+  {
     int numEntries = getNumEntries(currentBlock);
     Record *currentEntry = (Record *)currentBlock;
-    for (int i = 0; i < numEntries; i++) {
-      if (id == NULL) {
+    for (int i = 0; i < numEntries; i++)
+    {
+      if (id == NULL)
+      {
         printEntry(currentEntry);
-      } else if (currentEntry->id == *((int *)id)) {
+      }
+      else if (currentEntry->id == *((int *)id))
+      {
         printEntry(currentEntry);
         return blockCounter;
       }
