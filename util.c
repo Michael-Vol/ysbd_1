@@ -1,18 +1,17 @@
-#include "HP/heap.h"
-#include "util.h"
-
 #include <stdio.h>
+
+#include "util.h"
 
 int getNumEntries(void *block)
 {
     void *blockPointer = block;
-    int *numEntriesP = blockPointer + 508;
+    int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
     return *numEntriesP;
 }
 void *getNextBlockP(void *block)
 {
     void *blockPointer = block;
-    void *NextBlockP = blockPointer + 500;
+    void *NextBlockP = blockPointer + NB_POINTER_POS;
     return NextBlockP;
 }
 void *jumpToNextEntry(void *block)
@@ -24,7 +23,7 @@ void *jumpToNextEntry(void *block)
 int increaseNumEntries(void *block)
 {
     void *blockPointer = block;
-    int *numEntriesP = blockPointer + 508;
+    int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
     *(numEntriesP)++;
     return *numEntriesP;
 }
@@ -32,8 +31,8 @@ int increaseNumEntries(void *block)
 void initBlock(void *block)
 {
     void *blockPointer = block;
-    void *NextBlockP = blockPointer + 500;
-    int *numEntriesP = blockPointer + 508;
+    void *NextBlockP = blockPointer + NB_POINTER_POS;
+    int *numEntriesP = blockPointer + NUM_ENTRIES_POS;
     *((char *)NextBlockP) = NULL;
     *numEntriesP = 0;
 }
